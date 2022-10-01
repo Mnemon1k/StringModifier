@@ -2,13 +2,14 @@ package com.mnemon1k.stringmodifier.controller;
 
 import com.mnemon1k.stringmodifier.model.StringModificationRequestModel;
 import com.mnemon1k.stringmodifier.model.StringModificationType;
-import com.mnemon1k.stringmodifier.modifier.StringModifier;
 import com.mnemon1k.stringmodifier.service.StringModificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/modify")
@@ -35,7 +36,7 @@ public class StringModificationController {
     }
 
     @GetMapping()
-    public Map<StringModificationType, StringModifier> getModificationTypes(){
-        return null;
+    public ResponseEntity<List<StringModificationType>> getModificationTypes(){
+        return new ResponseEntity<>(Arrays.asList(StringModificationType.values()), HttpStatus.OK);
     }
 }
