@@ -1,10 +1,10 @@
 package com.mnemon1k.stringmodifier.modifier;
 
 
-import com.mnemon1k.stringmodifier.model.StringModificationType;
+import com.mnemon1k.stringmodifier.model.StringModificationTypes;
 
 public interface StringModifier {
-    StringModificationType getType();
+    StringModificationTypes getType();
 
     String modify(String source);
 }

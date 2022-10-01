@@ -1,18 +1,19 @@
 package com.mnemon1k.stringmodifier.controller;
 
 import com.mnemon1k.stringmodifier.model.StringModificationRequestModel;
-import com.mnemon1k.stringmodifier.model.StringModificationType;
+import com.mnemon1k.stringmodifier.model.StringModificationTypes;
 import com.mnemon1k.stringmodifier.service.StringModificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/modify")
+@RequestMapping
 public class StringModificationController {
 
     StringModificationService modificationService;
@@ -22,10 +23,11 @@ public class StringModificationController {
         this.modificationService = modificationService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> modifyString(@RequestBody StringModificationRequestModel request){
-        if (request == null || request.getModificationType() == null)
-            return ResponseEntity.badRequest().body("Invalid request");
+    @PostMapping("/modify")
+    public ResponseEntity<Object> modifyString(@RequestBody StringModificationRequestModel request){
+        if (request == null || request.getModificationType() == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
         if (request.getSourceString() == null || request.getSourceString().isBlank())
             return ResponseEntity.ok().build();
@@ -35,8 +37,9 @@ public class StringModificationController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<StringModificationType>> getModificationTypes(){
-        return new ResponseEntity<>(Arrays.asList(StringModificationType.values()), HttpStatus.OK);
+    @GetMapping("/modifications")
+    public ResponseEntity<List<StringModificationTypes>> getModificationTypes(){
+        return new ResponseEntity<>(Arrays.asList(StringModificationTypes.values()), HttpStatus.OK);
     }
+
 }
