@@ -1,6 +1,6 @@
 # String modifier app
 
-It is a small education app that makes string modifications by POST request to /modify. And to add a new type of modification we did not need to affect the controller and service.
+Small education app that makes string modifications by POST request to /modify. And to add a new type of modification we did not need to affect the controller and service.
 
 In our case, you need just add it to the StringModificationTypes enumeration and create a class that implements the StringModifier interface, which describes methods modify and getType.
 
